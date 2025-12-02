@@ -1,8 +1,19 @@
 import React from 'react'
 
-export default function Hero({ title, subtitle, ctaLeft, ctaRight, mediaUrl, ctaLeftLink = '#explore', ctaRightLink = '#plan' }){
+export default function Hero({ title, subtitle, ctaLeft, ctaRight, mediaUrl = '/assets/doc_2025-12-02_02-34-50.mp4', ctaLeftLink = '#explore', ctaRightLink = '#plan' }){
   return (
-    <header className="relative w-full h-[480px] sm:h-[85vh] lg:h-screen overflow-hidden cinematic-hero" style={{ backgroundImage: `url(${mediaUrl})` }}>
+    <header className="relative w-full h-[480px] sm:h-[85vh] lg:h-screen overflow-hidden cinematic-hero">
+      {/* Video Background */}
+      <video 
+        className="absolute inset-0 w-full h-full object-cover"
+        autoPlay 
+        muted 
+        loop 
+        playsInline
+      >
+        <source src={mediaUrl} type="video/mp4" />
+      </video>
+      
       {/* Dark Overlay for Text Contrast */}
       <div className="absolute inset-0 bg-gradient-to-b from-black-stone/20 via-black-stone/35 to-black-stone/45" />
       

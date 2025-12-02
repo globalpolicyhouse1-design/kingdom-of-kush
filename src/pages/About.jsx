@@ -30,20 +30,20 @@ export default function About({ lang }){
   return (
     <main>
       {/* ===== SECTION 1: KINGDOM OF KUSH STORY ===== */}
-      <section className="w-full bg-white-marble py-5xl md:py-5xl px-container">
+      <section className="w-full bg-offwhite py-5xl md:py-5xl px-container">
         <div className="max-w-4xl mx-auto text-center space-y-4xl">
           {/* Section Label */}
-          <div className="text-label font-semibold text-sand-gold uppercase tracking-wide">
+          <div className="text-label font-semibold text-gold uppercase tracking-wide">
             Our Story
           </div>
           
           {/* Title */}
-          <h1 className="text-display-lg md:text-display-xl font-display font-bold text-dark-green leading-tight">
+          <h1 className="text-display-lg md:text-display-xl font-display font-bold text-primary leading-tight">
             The Kingdom of Kush: Where History Meets Tomorrow
           </h1>
           
           {/* Main Narrative */}
-          <div className="space-y-lg text-body-md md:text-body-lg text-black-stone/85 leading-relaxed">
+          <div className="space-y-lg text-body-md md:text-body-lg text-primary/85 leading-relaxed">
             <p>
               The ancient Kingdom of Kush was one of Africa's greatest civilizations—a center of power, trade, and cultural excellence that rivaled Egypt itself. For millennia, Nubian kingdoms ruled from the Nile's heart, building temples, pyramids, and fortresses that stand as testaments to architectural brilliance and sophisticated governance.
             </p>
@@ -54,24 +54,24 @@ export default function About({ lang }){
           
           {/* Decorative Divider */}
           <div className="flex justify-center pt-lg">
-            <div className="w-20 h-1 bg-gradient-to-r from-transparent via-sand-gold to-transparent"></div>
+            <div className="w-20 h-1 bg-gradient-to-r from-transparent via-gold to-transparent"></div>
           </div>
         </div>
       </section>
 
       {/* ===== SECTION 2: VISION FOR THE FUTURE ===== */}
-      <section className="w-full bg-gradient-to-b from-white-marble to-sand-gold/5 py-5xl md:py-5xl px-container">
+      <section className="w-full bg-gradient-to-b from-offwhite to-gold/5 py-5xl md:py-5xl px-container">
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5xl lg:gap-5xl items-center">
             {/* Left Column: Vision Text */}
             <div className="animate-fade-in-up space-y-2xl">
               {/* Subsection Title */}
-              <h2 className="text-display-md md:text-display-lg font-display font-bold text-dark-green">
+              <h2 className="text-display-md md:text-display-lg font-display font-bold text-primary">
                 A Vision for Global Connection
               </h2>
               
               {/* Vision Statement */}
-              <p className="text-body-md md:text-body-lg text-black-stone/85 leading-relaxed">
+              <p className="text-body-md md:text-body-lg text-primary/85 leading-relaxed">
                 Kingdom of Kush envisions a future where ancient wisdom guides modern progress. We believe cultural heritage and technological innovation can coexist, creating transformative experiences for global citizens.
               </p>
               
@@ -101,7 +101,7 @@ export default function About({ lang }){
             
             {/* Right Column: Visual Block */}
             <div className="animate-scale-in h-96 md:h-full">
-              <div className="bg-gradient-to-br from-dark-green to-black-stone rounded-2xl p-4xl h-full flex flex-col justify-between items-center relative overflow-hidden shadow-luxury">
+                <div className="bg-gradient-to-br from-primary to-black-stone rounded-2xl p-4xl h-full flex flex-col justify-between items-center relative overflow-hidden shadow-luxury">
                 {/* Decorative background */}
                 <div className="absolute inset-0 opacity-10">
                   <div className="absolute top-10 right-10 w-32 h-32 border-2 border-sand-gold rounded-full"></div>
@@ -113,10 +113,10 @@ export default function About({ lang }){
                   <div className="text-7xl animate-bounce" style={{ animationDuration: '3s' }}>
                     ☀️
                   </div>
-                  <h3 className="text-display-md md:text-display-lg font-display font-bold text-white-marble">
+                  <h3 className="text-display-md md:text-display-lg font-display font-bold text-offwhite">
                     Tomorrow's Kingdom
                   </h3>
-                  <p className="text-body-md text-white-marble/90 max-w-xs mx-auto">
+                  <p className="text-body-md text-offwhite/90 max-w-xs mx-auto">
                     Built on foundations of 3,000 years of excellence
                   </p>
                 </div>
@@ -127,14 +127,14 @@ export default function About({ lang }){
       </section>
 
       {/* ===== SECTION 3: SUDAN–EGYPT COLLABORATION ===== */}
-      <section className="w-full bg-white-marble py-5xl md:py-5xl px-container">
+      <section className="w-full bg-offwhite py-5xl md:py-5xl px-container">
         <div className="max-w-5xl mx-auto space-y-4xl">
           {/* Section Header */}
           <div className="text-center space-y-md">
-            <h2 className="text-display-md md:text-display-lg font-display font-bold text-dark-green">
+            <h2 className="text-display-md md:text-display-lg font-display font-bold text-primary">
               Sudan & Egypt United: A Collaborative Future
             </h2>
-            <p className="text-body-md md:text-body-lg text-black-stone/70 max-w-2xl mx-auto">
+            <p className="text-body-md md:text-body-lg text_primary/70 max-w-2xl mx-auto">
               Kingdom of Kush celebrates the Nile Valley heritage shared by two great nations, building bridges through culture, tourism, and mutual growth.
             </p>
           </div>

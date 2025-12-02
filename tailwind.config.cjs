@@ -3,38 +3,42 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        /* Primary design tokens */
+        primary: {
+          DEFAULT: '#0B3D2E', // Royal Dark Green
+          50: '#EAF4F0',
+          100: '#D6ECE6',
+          200: '#AEDCCE',
+          300: '#74BDAE',
+          400: '#3B8E7F'
+        },
+        gold: {
+          DEFAULT: '#D4AF37', // Regal Gold
+          50: '#FEF9F1',
+          100: '#FBF0D9',
+          200: '#F0D4A6',
+          300: '#E1B66D',
+          600: '#B88B2A'
+        },
+        'gold-pressed': '#B88B2A',
+        white: '#FFFFFF',
+        'offwhite': '#F5F5F5',
+        muted: '#BDBDBD',
+        /* Compatibility / legacy tokens */
         'sand-gold': {
-          50: '#FDF9F3',
-          100: '#F5EDE1',
-          200: '#E8DCC8',
-          300: '#D4AF37',
-          400: '#C9A961',
-          DEFAULT: '#D4AF37',
-          600: '#B8920A'
+          DEFAULT: '#D4AF37'
         },
         'dark-green': {
-          50: '#F0F5F3',
-          100: '#D9E9E3',
-          300: '#1B4D3E',
-          400: '#0F3D2E',
-          DEFAULT: '#1B4D3E'
+          DEFAULT: '#0B3D2E'
         },
         'black-stone': {
-          50: '#F7F6F2',
-          100: '#E8E7E3',
-          DEFAULT: '#1A1A1A',
-          600: '#2D2D2D'
+          DEFAULT: '#071f18'
         },
         'bronze': {
-          100: '#F5F1EA',
-          300: '#A0826D',
-          400: '#8B6F47',
-          DEFAULT: '#8B6F47'
+          DEFAULT: '#B88B2A'
         },
         'white-marble': {
-          50: '#F5F3F0',
-          DEFAULT: '#F5F3F0',
-          100: '#FFFFFF'
+          DEFAULT: '#F5F5F5'
         }
       },
       fontFamily: {
@@ -71,12 +75,25 @@ module.exports = {
         'container': '1440px'
       },
       borderRadius: {
-        'minimal': '2px'
+        'minimal': '2px',
+        'regal': '8px'
       },
       boxShadow: {
         'luxury': '0 20px 50px rgba(0,0,0,0.15)',
         'luxury-hover': '0 30px 70px rgba(0,0,0,0.2)',
-        'card': '0 4px 20px rgba(0,0,0,0.08)'
+        'card': '0 4px 20px rgba(0,0,0,0.08)',
+        'gold-glow': '0 6px 18px rgba(212,175,55,0.12)',
+        'gold-strong': '0 12px 36px rgba(212,175,55,0.18)'
+      },
+      keyframes: {
+        twinkle: {
+          '0%': { opacity: '0.6', transform: 'scale(0.98)' },
+          '50%': { opacity: '1', transform: 'scale(1.02)' },
+          '100%': { opacity: '0.6', transform: 'scale(0.98)' }
+        }
+      },
+      animation: {
+        'star-twinkle': 'twinkle 6s ease-in-out infinite'
       }
     }
   },

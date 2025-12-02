@@ -16,10 +16,10 @@ export const locales = {
 }
 
 export const destinations = [
-  { id: 'meroe', title: 'Meroe', excerpt: 'Royal pyramids and iron-smithing legacy.', image: 'https://images.unsplash.com/photo-1563201519-2bfcf6d3f8b3?auto=format&fit=crop&w=1400&q=60' },
-  { id: 'napata', title: 'Napata', excerpt: 'Sacred temples and Kushite heartlands.', image: 'https://images.unsplash.com/photo-1524926594705-439af2b6b1d5?auto=format&fit=crop&w=1400&q=60' },
-  { id: 'jebel-barkal', title: 'Jebel Barkal', excerpt: 'Holy mountain and UNESCO site.', image: 'https://images.unsplash.com/photo-1583829321609-7d27ad7f0b7b?auto=format&fit=crop&w=1400&q=60' },
-  { id: 'dongola', title: 'Dongola', excerpt: 'Riverside ruins and living culture.', image: 'https://images.unsplash.com/photo-1566093188608-1f8bdeb92a32?auto=format&fit=crop&w=1400&q=60' }
+  { id: 'meroe', title: 'Meroe', excerpt: 'Royal pyramids and iron-smithing legacy.', image: '/assets/images/photo_2025-12-02_05-29-14.jpg' },
+  { id: 'napata', title: 'Napata', excerpt: 'Sacred temples and Kushite heartlands.', image: '/assets/images/photo_2025-12-02_05-30-59.jpg' },
+  { id: 'jebel-barkal', title: ' Barkal', excerpt: 'Holy mountain and UNESCO site.', image: '/assets/images/photo_2025-12-02_05-31-44.jpg' },
+  { id: 'dongola', title: 'Dongola', excerpt: 'Riverside ruins and living culture.', image: '/assets/images/photo_2025-12-02_05-32-15.jpg' }
 ]
 
 export const events = [

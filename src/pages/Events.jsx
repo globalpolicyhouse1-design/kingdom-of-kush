@@ -16,25 +16,25 @@ export default function Events(){
   return (
     <main>
       {/* Header */}
-      <section className="py-4xl md:py-5xl px-container bg-gradient-to-b from-sand-gold/10 to-white-marble">
+      <section className="py-4xl md:py-5xl px-container bg-gradient-to-b from-gold/10 to-offwhite">
         <div className="max-w-container mx-auto space-y-md">
-          <h1 className="text-headline text-black-stone">Cultural Events</h1>
-          <p className="text-body-lg text-black-stone/70 max-w-3xl">
+          <h1 className="text-headline text-primary">Cultural Events</h1>
+          <p className="text-body-lg text-primary/70 max-w-3xl">
             Discover upcoming celebrations of Nubian heritage, art, music, and cultural experiences across the Kingdom of Kush.
           </p>
         </div>
       </section>
 
       {/* Filters */}
-      <section className="py-lg md:py-2xl px-container bg-white-marble border-b border-sand-gold/10 sticky top-[72px] z-40">
+      <section className="py-lg md:py-2xl px-container bg-offwhite border-b border-gold/10 sticky top-[72px] z-40">
         <div className="max-w-container mx-auto">
           <div className="flex flex-col sm:flex-row gap-lg items-start sm:items-center">
-            <label className="text-label font-semibold text-black-stone">Filter:</label>
+            <label className="text-label font-semibold text-primary">Filter:</label>
             
             <select 
               value={filter.location} 
               onChange={e => setFilter({ ...filter, location: e.target.value })} 
-              className="px-md py-sm rounded-minimal border border-sand-gold/30 bg-white-marble text-black-stone text-body-sm font-medium focus:outline-none focus:border-sand-gold/60"
+              className="px-md py-sm rounded-minimal border border-gold/30 bg-offwhite text-primary text-body-sm font-medium focus:outline-none focus:border-gold/60"
             >
               <optgroup label="Location">
                 {locations.map(l => <option key={l} value={l}>{l}</option>)}
@@ -44,7 +44,7 @@ export default function Events(){
             <select 
               value={filter.category} 
               onChange={e => setFilter({ ...filter, category: e.target.value })} 
-              className="px-md py-sm rounded-minimal border border-sand-gold/30 bg-white-marble text-black-stone text-body-sm font-medium focus:outline-none focus:border-sand-gold/60"
+              className="px-md py-sm rounded-minimal border border-gold/30 bg-offwhite text-primary text-body-sm font-medium focus:outline-none focus:border-gold/60"
             >
               <optgroup label="Category">
                 {categories.map(c => <option key={c} value={c}>{c}</option>)}
@@ -54,7 +54,7 @@ export default function Events(){
             {(filter.location !== 'All' || filter.category !== 'All') && (
               <button 
                 onClick={() => setFilter({ location: 'All', category: 'All' })}
-                className="ml-auto text-body-sm text-sand-gold hover:text-sand-gold/80 transition-colors"
+                className="ml-auto text-body-sm text-gold hover:text-gold/80 transition-colors"
               >
                 Clear Filters
               </button>
@@ -70,23 +70,23 @@ export default function Events(){
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2xl">
               {filtered.map((ev, idx) => (
                 <div key={ev.id} className="animate-fade-in-up" style={{ animationDelay: `${idx * 100}ms` }}>
-                  <article className="rounded-minimal overflow-hidden card-hover bg-white-marble rounded-card border border-sand-gold/10 h-full flex flex-col">
+                  <article className="rounded-minimal overflow-hidden card-hover bg-offwhite rounded-card border border-gold/10 h-full flex flex-col">
                     {/* Image */}
-                    <div className="relative h-56 md:h-64 overflow-hidden bg-black-stone/10">
+                    <div className="relative h-56 md:h-64 overflow-hidden bg-primary/10">
                       <img 
                         src={ev.image} 
                         alt={ev.title} 
                         className="w-full h-full object-cover transition-transform duration-500 hover:scale-110" 
                         loading="lazy"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black-stone/50 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-primary/50 to-transparent" />
                     </div>
                     
                     {/* Content */}
                     <div className="p-lg md:p-2xl space-y-md flex-1 flex flex-col justify-between">
                       <div>
-                        <h3 className="text-body-lg font-display font-semibold text-black-stone">{ev.title}</h3>
-                        <div className="mt-md space-y-sm text-body-sm text-black-stone/70">
+                        <h3 className="text-body-lg font-display font-semibold text-primary">{ev.title}</h3>
+                        <div className="mt-md space-y-sm text-body-sm text-primary/70">
                           <p className="flex items-center gap-md">
                             <span>📅</span>
                             <span>{ev.date}</span>
@@ -97,7 +97,7 @@ export default function Events(){
                           </p>
                         </div>
                       </div>
-                      <a href="#" className="text-sand-gold text-label font-semibold hover:text-sand-gold/80 transition-colors pt-md">
+                      <a href="#" className="text-gold text-label font-semibold hover:text-gold/80 transition-colors pt-md">
                         View Details →
                       </a>
                     </div>
