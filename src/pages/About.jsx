@@ -39,7 +39,7 @@ export default function About({ lang }){
           
           {/* Title */}
           <h1 className="text-display-lg md:text-display-xl font-display font-bold text-primary leading-tight">
-            The Kingdom of Kush: Where History Meets Tomorrow test
+            The Kingdom of Kush: Where History Meets Tomorrow
           </h1>
           
           {/* Main Narrative */}
