@@ -47,7 +47,7 @@ export default function App(){
         <Suspense fallback={<LoadingFallback />}>
           <Routes>
             <Route path="/" element={<Home lang={lang} />} />
-            <Route path="/about" element={<AboutUs lang={lang} />} />
+            <Route path="/about" element={<About lang={lang} />} />
             <Route path="/government" element={<Government />} />
             <Route path="/citizenship" element={<Citizenship />} />
             <Route path="/join" element={<Join />} />
