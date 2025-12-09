@@ -1,388 +1,280 @@
-import React, { useState } from 'react'
-import { motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import { Link } from 'react-router-dom';
+import { ChevronRight, Award, Briefcase, Users, ShieldCheck, Landmark, BarChart, Leaf } from 'lucide-react';
 
-const CitizenshipCard = ({ number, title, description, image, delay }) => {
-  const [isFlipped, setIsFlipped] = useState(false)
-  const { ref, inView } = useInView({ threshold: 0.2, triggerOnce: true })
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={inView ? { opacity: 1, scale: 1 } : {}}
-      transition={{ duration: 0.6, delay }}
-      onMouseEnter={() => setIsFlipped(true)}
-      onMouseLeave={() => setIsFlipped(false)}
-      className="h-72 cursor-pointer perspective"
-    >
-      <motion.div
-        className="w-full h-full bg-gradient-to-br from-primary to-primary/80 rounded-2xl p-6 flex flex-col items-center justify-between text-center shadow-lg relative"
-        animate={{ rotateY: isFlipped ? 180 : 0 }}
-        transition={{ duration: 0.6 }}
-        style={{ transformStyle: 'preserve-3d' }}
-      >
-        {/* front */}
-        <div className="space-y-4" style={{ backfaceVisibility: 'hidden' }}>
-          {image && (
-            <img src={image} alt={`${title} doc`} className="w-20 h-20 mx-auto rounded-md object-cover shadow-md" />
-          )}
-          <div className="text-4xl font-display font-bold text-sand-gold">{number}</div>
-          <h3 className="text-xl md:text-2xl font-display font-bold text-white-marble">{title}</h3>
-        </div>
-
-        {/* back */}
-        <div className="space-y-4 absolute inset-0 p-6 flex items-center justify-center" style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}>
-          <p className="text-white-marble/90 text-sm leading-relaxed">{description}</p>
-        </div>
-      </motion.div>
-    </motion.div>
-  )
-}
-
-const PassportCard = ({ delay }) => {
-  const { ref, inView } = useInView({ threshold: 0.2, triggerOnce: true })
+const StatCard = ({ icon, value, label, delay }) => {
+  const { ref, inView } = useInView({ threshold: 0.3, triggerOnce: true });
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={inView ? { opacity: 1, scale: 1 } : {}}
+      initial={{ opacity: 0, y: 30 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay }}
-      className="relative h-96 group"
+      className="bg-white/10 backdrop-blur-md rounded-2xl p-6 text-center"
     >
-      <motion.div
-        className="w-full h-full bg-gradient-to-br from-sand-gold to-sand-gold/70 rounded-2xl p-8 flex flex-col items-center justify-center shadow-lg overflow-hidden"
-        whileHover={{ scale: 1.05, rotateX: 15, rotateY: -15 }}
-      >
-        {/* Shimmer effect */}
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-20"
-          animate={{ x: ['-100%', '100%'] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        />
-
-        <div className="relative z-10 text-center space-y-6">
-          <img src="https://images.unsplash.com/photo-1608656521055-971c0b00ef46?w=120&h=120&fit=crop" alt="Passport" className="w-24 h-24 mx-auto rounded-lg shadow-lg" />
-          <div>
-            <h3 className="text-3xl font-display font-bold text-primary mb-2">Kush Passport</h3>
-            <p className="text-primary/80">Your key to global mobility</p>
-          </div>
-          <p className="text-sm text-primary/70 max-w-xs">
-            Access 150+ countries with preferred visa waiver agreements
-          </p>
-        </div>
-      </motion.div>
-    </motion.div>
-  )
-}
-
-const InvestmentCard = ({ tier, amount, benefits, image, delay }) => {
-  const { ref, inView } = useInView({ threshold: 0.2, triggerOnce: true })
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, x: 30 }}
-      animate={inView ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 0.6, delay }}
-      whileHover={{ scale: 1.02, y: -10 }}
-      className="bg-gradient-to-br from-primary/10 to-primary/5 border-2 border-primary rounded-2xl p-8 min-w-80 shadow-lg"
-    >
-      <div className="space-y-4">
-        {/* top image */}
-        {image && (
-          <div className="w-full h-40 rounded-lg overflow-hidden mb-2">
-            <img src={image} alt={tier} className="w-full h-full object-cover" />
-          </div>
-        )}
-        <h3 className="text-2xl font-display font-bold text-primary">{tier}</h3>
-        <div className="text-4xl font-display font-bold text-sand-gold">${amount}K</div>
-        <p className="text-primary/70 text-sm">Minimum investment</p>
-
-        <div className="space-y-3 pt-4 border-t border-primary/20">
-          {benefits.map((benefit, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, x: -10 }}
-              animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.4, delay: delay + idx * 0.1 }}
-              className="flex gap-2 items-center text-primary/80 text-sm"
-            >
-              <span className="text-sand-gold">✓</span>
-              <span>{benefit}</span>
-            </motion.div>
-          ))}
-        </div>
-
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="w-full mt-4 px-4 py-3 bg-primary text-white-marble font-display font-bold rounded-lg"
-        >
-          Learn More
-        </motion.button>
+      <div className="text-sand-gold mb-3 w-12 h-12 mx-auto flex items-center justify-center">
+        {icon}
       </div>
+      <div className="text-4xl font-bold text-white-marble">{value}</div>
+      <p className="text-sand-gold/80">{label}</p>
     </motion.div>
-  )
-}
+  );
+};
+
+const PathwayCard = ({ title, description, image }) => {
+  return (
+    <Link to="/contact" className="bg-white-marble rounded-2xl shadow-lg overflow-hidden cursor-pointer hover:shadow-xl transition-shadow duration-300">
+      <div className="h-32 bg-cover bg-center" style={{ backgroundImage: `url(${image})` }} />
+      <div className="p-6">
+        <h3 className="text-xl font-bold text-primary mb-2">{title}</h3>
+        <p className="text-primary/70 text-sm leading-relaxed">{description}</p>
+      </div>
+    </Link>
+  );
+};
+
+
+
+const BenefitHighlight = ({ icon, title, children, delay }) => {
+  const { ref, inView } = useInView({ threshold: 0.3, triggerOnce: true });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 30 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay }}
+      className="text-center"
+    >
+      <div className="mx-auto w-16 h-16 flex items-center justify-center rounded-full bg-sand-gold/20 text-sand-gold mb-4">
+        {icon}
+      </div>
+      <h3 className="text-2xl font-bold text-primary mb-2">{title}</h3>
+      <p className="text-primary/70 max-w-sm mx-auto">{children}</p>
+    </motion.div>
+  );
+};
 
 export default function Citizenship() {
-  const { ref: titleRef, inView: titleInView } = useInView({ threshold: 0.5, triggerOnce: true })
+  const { ref: heroRef, inView: heroInView } = useInView({ threshold: 0.3, triggerOnce: true });
 
-  const steps = [
-    { number: '01', title: 'Apply', description: 'Submit your application online with required documents', image: 'https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=400&h=400&fit=crop' },
-    { number: '02', title: 'Review', description: 'Our team verifies your information and background', image: 'https://images.unsplash.com/photo-1532619675605-9f9a4d9b6d3b?w=400&h=400&fit=crop' },
-    { number: '03', title: 'Approve', description: 'Receive approval and citizenship certificate', image: 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff?w=400&h=400&fit=crop' },
-    { number: '04', title: 'Celebrate', description: 'Welcome to the Kingdom of Kush!', image: 'https://images.unsplash.com/photo-1504198453319-5ce911bafcde?w=400&h=400&fit=crop' }
-  ]
-
-  const investments = [
+  const pathways = [
     {
-      tier: 'Entrepreneur',
-      amount: 50,
-      benefits: ['Residency', 'Business License', 'Tax Benefits', 'Visa-Free Travel'],
-      image: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800&h=600&fit=crop'
+      title: 'E-RESIDENCY (DIGITAL BUSINESS CITIZENSHIP) - $500',
+      description: 'Includes: -Digital business license, Mrechant registration, Access to e-government commerce portals, API credentials for government marketplace, Basic NIN-lite verification. Not a travel document ',
+      image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop',
     },
     {
-      tier: 'Investor',
-      amount: 250,
-      benefits: ['Full Citizenship', 'Property Rights', 'Investment Portfolio', 'VIP Status'],
-      image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&h=600&fit=crop'
+      title: 'E-CITIZENSHIP - $50,000',
+      description: 'Includes: Digital ID, Prefabricated home (1BR) delivery process, Access to investment ecosystem, National services integration (education, business, land leasing).',
+      image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&h=300&fit=crop',
     },
     {
-      tier: 'Major Contributor',
-      amount: 1000,
-      benefits: ['Lifetime Citizenship', 'Diplomatic Privileges', 'Board Opportunities', 'Legacy Planning'],
-      image: 'https://images.unsplash.com/photo-1491895200222-0fc4a92a6c63?w=800&h=600&fit=crop'
+      title: 'FULL CITIZENSHIP - $120,000',
+      description: 'Includes: Full rights under Citizenship Act, Passport eligibility, 1-bedroom assigned national prefabricated home, Entry in National Population Registry, Access to diplomatic protection, Ability to apply for government roles',
+      image: 'https://images.unsplash.com/photo-1600880292203-942bb68b2434?w=400&h=300&fit=crop',
+    },
+    {
+      title: 'CITIZENSHIP BY INVESTMENT (CBI)',
+      description: 'Investment Channels: Real estate development fund, Sovereign bond purchase, National industry partnerships (gold, diamond, oil, gas, marble mines, Approved economic empowerment programs. REQUIRES: proof of funds, Enhance due diligence (EDD), Source of wealth (SOW) letter.',
+      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop',
+    },
+    {
+      title: 'CITIZENSHIP BY NATURALIZATION',
+      description: 'Requirements: 5 years documented residency, NIN with verified residency activity, Language test (basic Kushite English), Community participation documentation.',
+      image: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&h=300&fit=crop',
+    },
+    {
+      title: 'CITIZENSHIP BY MARRIAGE',
+      description: 'Requirements: 3-year marriage, Joint household proof, No criminal record, Verification interview.  ',
+      image: 'https://images.unsplash.com/photo-1530046473562-581a8b38a7c1?w=400&h=300&fit=crop'
+    },
+    {
+        title: 'DIASPORA CITIZENSHIP (HERITAGE LINE)',
+        description: 'Requirements: Genealogical evidence, Cultural/ancestral documentation, DNA verification optional, not mandatory.',
+        image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&h=300&fit=crop'
+    },
+    {
+        title: 'EXCEPTIONAL MERIT TRACK',
+        description: 'Offered to: Celebrities, Athletes, Scientists, Diplomats, High-impact Investors, Notable contributions to Kush global image.',
+        image: 'https://images.unsplash.com/photo-1517898717284-9330d2b36a7a?w=400&h=300&fit=crop'
+    },
+    {
+        title: 'MINOR & DEPENDENT CITIZENSHIP',
+        description: 'Parent and guardian verification required.',
+        image: 'https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=400&h=300&fit=crop'
+    },
+    {
+        title: 'OTHER CITIZENSHIP PATHWAYS',
+        description: 'Explore other ways to attain citizenship in The Kingdom of Kush.',
+        image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&h=300&fit=crop'
     }
-  ]
+  ];
+  
+  const pathwaysRow1 = pathways.slice(0, 5);
+  const pathwaysRow2 = pathways.slice(6, 10);
 
-  const youthPrograms = [
-    { icon: 'https://images.unsplash.com/photo-1543269865-cbdf26effbad?w=200&h=200&fit=crop', title: 'Education Track', description: 'Scholarships for African students' },
-    { icon: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=200&h=200&fit=crop', title: 'Career Path', description: 'Professional development programs' },
-    { icon: 'https://images.unsplash.com/photo-1516534775068-bb57e39c0ae0?w=200&h=200&fit=crop', title: 'Innovation Hub', description: 'Tech entrepreneurship support' },
-    { icon: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=200&h=200&fit=crop', title: 'Global Network', description: 'Connect with peers worldwide' },
-    { icon: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=200&h=200&fit=crop', title: 'Leadership', description: 'Executive training programs' },
-    { icon: 'https://images.unsplash.com/photo-1516534775068-bb57e39c0ae0?w=200&h=200&fit=crop', title: 'Mentorship', description: 'One-on-one guidance from experts' }
-  ]
+  const partnerNations = [
+    'United Arab Emirates', 'Singapore', 'South Korea', 'Nigeria', 'Kenya',
+    'Brazil', 'India', 'Germany', 'Turkey', 'South Africa', 'Egypt',
+    'Ethiopia', 'Ghana', 'Rwanda', 'Malaysia'
+  ];
 
   return (
-    <main className="bg-white-marble overflow-hidden">
+    <main className="bg-primary/5">
       {/* ===== HERO SECTION ===== */}
-      <section className="relative min-h-screen flex items-center justify-center py-5xl px-container overflow-hidden" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1577720643272-265b87dd0ca1?w=1200&h=600&fit=crop)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/70 via-primary/60 to-primary/50" />
-
-        <motion.div
-          ref={titleRef}
-          initial={{ opacity: 0, y: 40 }}
-          animate={titleInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="relative z-10 text-center max-w-4xl mx-auto space-y-8"
-        >
-          <motion.p
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={titleInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-sand-gold font-semibold text-lg tracking-widest uppercase"
-          >
-            Pathways to Belonging
-          </motion.p>
-
+      <section
+        ref={heroRef}
+        className="min-h-screen flex items-center justify-center text-center py-20 px-4 relative"
+        style={{
+          backgroundImage: 'url(/assets/images/kush4.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        <div className="absolute inset-0 bg-primary/60" />
+        <div className="relative z-10 max-w-4xl mx-auto space-y-6">
           <motion.h1
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={titleInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.8, delay: 0.2, type: 'spring', stiffness: 100 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-white-marble leading-tight"
+            initial={{ opacity: 0, y: 30 }}
+            animate={heroInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="text-3xl md:text-5xl font-display font-bold text-white-marble"
           >
-            Citizenship Programs
+            Become a Citizen of
+            <div className="text-5xl md:text-7xl font-display font-bold text-sand-gold">The Kingdom of Kush</div>
           </motion.h1>
-
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={titleInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-2xl md:text-3xl font-display text-sand-gold"
+            initial={{ opacity: 0, y: 30 }}
+            animate={heroInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="text-xl md:text-2xl text-white-marble font-bold"
           >
-            Join a Nation of Opportunity
+            It's time to come home!.
           </motion.p>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={titleInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-lg text-white-marble/90 max-w-2xl mx-auto"
-          >
-            Become a citizen of the Kingdom of Kush and access unparalleled opportunities for growth, innovation, and prosperity.
-          </motion.p>
-
-          <motion.button
+          <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
-            animate={titleInView ? { opacity: 1, scale: 1 } : {}}
+            animate={heroInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.6, delay: 0.5 }}
-            whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(212, 175, 55, 0.6)' }}
-            whileTap={{ scale: 0.95 }}
-            className="px-8 py-4 bg-sand-gold text-primary font-display font-bold text-lg rounded-lg shadow-lg inline-block"
           >
-            Start Your Journey
-          </motion.button>
-        </motion.div>
-      </section>
-
-      {/* ===== STEPS TO OBTAIN CITIZENSHIP ===== */}
-      <section className="py-5xl px-container bg-white-marble">
-        <div className="max-w-6xl mx-auto">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-display font-bold text-primary text-center mb-5xl"
-          >
-            Steps to Obtain Citizenship
-          </motion.h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {steps.map((step, idx) => (
-              <CitizenshipCard key={idx} {...step} delay={idx * 0.1} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== KUSH PASSPORT ===== */}
-      <section className="py-5xl px-container bg-gradient-to-b from-primary/5 to-white-marble">
-        <div className="max-w-6xl mx-auto">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-display font-bold text-primary text-center mb-5xl"
-          >
-            The Kush Passport
-          </motion.h2>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <PassportCard delay={0} />
-
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="space-y-6"
-            >
-              <p className="text-lg text-primary/80 leading-relaxed">
-                The Kush passport is more than a travel document—it's a symbol of your connection to one of Africa's most dynamic nations.
-              </p>
-
-              <div className="space-y-4">
-                {['Access to 150+ countries', 'Visa waiver agreements', 'Priority processing', 'Lifetime renewal benefits', 'Digital & physical copies'].map((item, idx) => (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: idx * 0.1 }}
-                    viewport={{ once: true }}
-                    className="flex gap-3 items-center"
-                  >
-                    <span className="text-sand-gold font-bold text-xl">✓</span>
-                    <span className="text-primary/80">{item}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== CITIZENSHIP BY INVESTMENT ===== */}
-      <section className="py-5xl px-container bg-white-marble">
-        <div className="max-w-6xl mx-auto">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-display font-bold text-primary text-center mb-5xl"
-          >
-            Citizenship by Investment
-          </motion.h2>
-
-          <div className="flex overflow-x-auto gap-6 pb-6 scroll-smooth">
-            {investments.map((inv, idx) => (
-              <InvestmentCard key={idx} {...inv} delay={idx * 0.1} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== YOUTH CITIZENSHIP PROGRAM ===== */}
-      <section className="py-5xl px-container bg-gradient-to-b from-primary/5 to-white-marble">
-        <div className="max-w-6xl mx-auto">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-display font-bold text-primary text-center mb-5xl"
-          >
-            Youth Citizenship Program
-          </motion.h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {youthPrograms.map((prog, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: idx * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ borderColor: '#D4AF37', y: -5 }}
-                className="border-2 border-primary rounded-2xl p-8 text-center space-y-4 bg-white-marble hover:shadow-lg transition-all"
+            <Link to="/join">
+              <button
+                className="bg-red-600 text-white-marble font-bold text-lg px-8 py-4 rounded-lg shadow-lg hover:bg-red-700 transition-colors duration-300 flex items-center gap-2 mx-auto"
               >
-                <motion.div
-                    className="inline-block w-20 h-20 mx-auto rounded-lg overflow-hidden"
-                    animate={{ y: [0, -10, 0] }}
-                    transition={{ duration: 3, repeat: Infinity }}
-                  >
-                    <img src={prog.icon} alt={prog.title} className="w-full h-full object-cover" />
-                  </motion.div>
-                <h3 className="text-xl font-display font-bold text-primary">{prog.title}</h3>
-                <p className="text-primary/70 text-sm">{prog.description}</p>
-              </motion.div>
-            ))}
-          </div>
+                Start Application <ChevronRight size={22} />
+              </button>
+            </Link>
+          </motion.div>
         </div>
       </section>
 
-      {/* ===== CTA SECTION ===== */}
-      <section className="py-5xl px-container bg-gradient-to-br from-primary to-primary/90">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="max-w-3xl mx-auto text-center space-y-6"
-        >
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-white-marble">
-            Ready to Become a Citizen?
-          </h2>
-          <p className="text-lg text-white-marble/90">
-            Take the first step towards a prosperous future in the Kingdom of Kush.
-          </p>
-          <motion.button
-            whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(212, 175, 55, 0.6)' }}
-            whileTap={{ scale: 0.95 }}
-            className="px-8 py-4 bg-sand-gold text-primary font-display font-bold text-lg rounded-lg shadow-lg inline-block"
-          >
-            Apply for Citizenship Today
-          </motion.button>
-        </motion.div>
+      {/* ===== STATS SECTION ===== */}
+      <section className="bg-primary py-20 px-4">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+          <StatCard
+            icon={<Award size={36} />}
+            value="3o+"
+            label="develop over 30 million hectares of land"
+            delay={0.1}
+          />
+          <StatCard
+            icon={<Briefcase size={36} />}
+            value="25+"
+            label="projects span over 25 countries"
+            delay={0.3}
+          />
+          <StatCard
+            icon={<Users size={36} />}
+            value="7M+"
+            label="Over 7 million citizenship applicants"
+            delay={0.5}
+          />
+        </div>
+      </section>
+
+      {/* ===== CITIZENSHIP PATHWAYS SECTION ===== */}
+      <section className="py-24 space-y-8 overflow-hidden">
+        <div className="text-center mb-16 px-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-primary">
+              Pathways to Citizenship
+            </h2>
+            <p className="text-lg text-primary/70 mt-4 max-w-2xl mx-auto">
+              We offer several routes to becoming a citizen, designed to attract talent, investment, and innovation.
+            </p>
+        </div>
+
+        <div className="flex flex-col gap-8 max-w-7xl mx-auto px-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+                {pathwaysRow1.map((pathway, index) => (
+                    <PathwayCard key={`row1-${index}`} {...pathway} />
+                ))}
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+                {pathwaysRow2.map((pathway, index) => (
+                    <PathwayCard key={`row2-${index}`} {...pathway} />
+                ))}
+            </div>
+        </div>
+      </section>
+
+      {/* ===== WHY BECOME A CITIZEN SECTION ===== */}
+      <section className="py-24 px-4 bg-white-marble">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-primary">Why Become a Citizen of Kush?</h2>
+            <p className="text-lg text-primary/70 mt-4 max-w-3xl mx-auto">
+              Joining the Kingdom of Kush means more than a passport; it's an investment in a prosperous future, a rich cultural heritage, and a network of global opportunities.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-20">
+            <BenefitHighlight icon={<BarChart size={32} />} title="Economic Growth" delay={0.1}>
+              A rapidly growing economy with business-friendly policies and access to emerging African markets.
+            </BenefitHighlight>
+            <BenefitHighlight icon={<Landmark size={32} />} title="Rich Heritage" delay={0.2}>
+              Connect with a deep, ancient history and a vibrant, modern culture that celebrates its roots.
+            </BenefitHighlight>
+            <BenefitHighlight icon={<Leaf size={32} />} title="Innovation Hub" delay={0.3}>
+              A nation committed to technological advancement, sustainable development, and forward-thinking solutions.
+            </BenefitHighlight>
+            <BenefitHighlight icon={<ShieldCheck size={32} />} title="Security & Stability" delay={0.4}>
+              A safe and stable environment for you, your family, and your investments.
+            </BenefitHighlight>
+          </div>
+
+          <div className="text-center mb-16">
+            <h3 className="text-3xl font-bold text-primary mb-4">Our Global Partner Network</h3>
+            <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 max-w-4xl mx-auto">
+              {partnerNations.map((nation, index) => (
+                <motion.span
+                  key={index}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: index * 0.05 }}
+                  viewport={{ once: true }}
+                  className="text-primary/60 font-medium text-lg"
+                >
+                  {nation}
+                </motion.span>
+              ))}
+            </div>
+          </div>
+
+          <div className="text-center mt-20">
+            <Link to="/join">
+              <motion.button
+                whileHover={{ scale: 1.05, boxShadow: '0 10px 30px rgba(220, 53, 69, 0.4)' }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-red-600 text-white font-bold text-xl px-12 py-5 rounded-xl shadow-lg hover:bg-red-700 transition-all duration-300"
+              >
+                Claim Your Citizenship
+              </motion.button>
+            </Link>
+          </div>
+        </div>
       </section>
     </main>
-  )
+  );
 }
