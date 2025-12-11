@@ -3,9 +3,27 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Link } from 'react-router-dom';
 import { ChevronRight, Award, Briefcase, Users, ShieldCheck, Landmark, BarChart, Leaf } from 'lucide-react';
+import Counter from '../components/Counter';
 
 const StatCard = ({ icon, value, label, delay }) => {
   const { ref, inView } = useInView({ threshold: 0.3, triggerOnce: true });
+
+  // Parse numeric value and suffix from string (e.g., "30+" -> {num: 30, suffix: "+"}, "7M+" -> {num: 7, suffix: "M+"})
+  const parseValue = (val) => {
+    // Extract all non-numeric characters at the end
+    const match = val.match(/^(\d+)(.*)$/);
+    
+    if (match) {
+      return {
+        num: parseInt(match[1], 10),
+        suffix: match[2] // This keeps "+", "M+", "K+", etc.
+      };
+    }
+    
+    return { num: 0, suffix: val };
+  };
+
+  const { num, suffix } = parseValue(value);
 
   return (
     <motion.div
@@ -18,7 +36,13 @@ const StatCard = ({ icon, value, label, delay }) => {
       <div className="text-sand-gold mb-3 w-12 h-12 mx-auto flex items-center justify-center">
         {icon}
       </div>
-      <div className="text-4xl font-bold text-white-marble">{value}</div>
+      <div className="text-4xl font-bold text-white-marble">
+        {inView ? (
+          <Counter target={num} duration={2000} suffix={suffix} />
+        ) : (
+          value
+        )}
+      </div>
       <p className="text-sand-gold/80">{label}</p>
     </motion.div>
   );
@@ -130,7 +154,7 @@ export default function Citizenship() {
         ref={heroRef}
         className="min-h-screen flex items-center justify-center text-center py-20 px-4 relative"
         style={{
-          backgroundImage: 'url(/assets/images/kush4.jpg)',
+          backgroundImage: 'url(/assets/images/kush-q.jpg)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
@@ -175,7 +199,7 @@ export default function Citizenship() {
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
           <StatCard
             icon={<Award size={36} />}
-            value="3o+"
+            value="30+"
             label="develop over 30 million hectares of land"
             delay={0.1}
           />

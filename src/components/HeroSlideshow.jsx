@@ -71,7 +71,8 @@ const HeroSlideshow = () => {
   };
 
   return (
-    <section className="relative w-full h-screen overflow-hidden bg-black-stone">
+    <>
+      <section className="relative w-full h-screen overflow-hidden bg-black-stone">
       <AnimatePresence initial={false} custom={direction}>
         <motion.div
           key={currentImageIndex}
@@ -151,6 +152,8 @@ const HeroSlideshow = () => {
         ))}
       </div>
     </section>
+    <div className="w-full h-8 bg-cover bg-center" style={{ backgroundImage: 'url(/assets/images/kush-pattern-gold.jpg)' }} />
+  </>
   );
 };
 

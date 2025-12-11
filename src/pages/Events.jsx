@@ -125,7 +125,7 @@ export default function Events(){
   return (
     <main className="bg-white-marble overflow-hidden">
       {/* ===== HERO BANNER ===== */}
-      <section className="relative min-h-screen flex items-center justify-center py-5xl px-container overflow-hidden" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=600&fit=crop)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      <section className="relative min-h-screen flex items-center justify-center py-5xl px-container overflow-hidden" style={{ backgroundImage: 'url(/assets/images/kush-c.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
         {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary/70 via-primary/60 to-primary/50" />
 

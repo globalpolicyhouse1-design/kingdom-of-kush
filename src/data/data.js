@@ -23,9 +23,9 @@ export const destinations = [
 ]
 
 export const events = [
-  { id: 1, title: 'Meroe Festival of Light', date: '2026-03-15', location: 'Meroe', category: 'Festival', excerpt: 'Celebrate Nubian heritage with music, dance, and ceremonial fire under the stars.', image: 'https://images.unsplash.com/photo-1505238680356-667803448bb6?auto=format&fit=crop&w=1200&q=60' },
-  { id: 2, title: 'Nile Ceremony & Cultural Showcase', date: '2026-07-05', location: 'Napata', category: 'Cultural', excerpt: 'Traditional ceremonies, modern performers, and holographic displays on the Nile.', image: 'https://images.unsplash.com/photo-1549880338-65ddcdfd017b?auto=format&fit=crop&w=1200&q=60' },
-  { id: 3, title: 'Future Kush Innovation Summit', date: '2026-11-10', location: 'Jebel Barkal', category: 'Innovation', excerpt: 'Blend ancient temples with cutting-edge technology and visionary governance.', image: 'https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?auto=format&fit=crop&w=1200&q=60' }
+  { id: 1, title: 'Meroe Festival of Light', date: '2026-03-15', location: 'Meroe', category: 'Festival', excerpt: 'Celebrate Nubian heritage with music, dance, and ceremonial fire under the stars.', image: '/assets/images/kush-c.jpg' },
+  { id: 2, title: 'Nile Ceremony & Cultural Showcase', date: '2026-07-05', location: 'Napata', category: 'Cultural', excerpt: 'Traditional ceremonies, modern performers, and holographic displays on the Nile.', image: '/assets/images/kush5.jpg' },
+  { id: 3, title: 'Future Kush Innovation Summit', date: '2026-11-10', location: 'Jebel Barkal', category: 'Innovation', excerpt: 'Blend ancient temples with cutting-edge technology and visionary governance.', image: '/assets/images/kush-q.jpg' }
 ]
 
 export const services = [

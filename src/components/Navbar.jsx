@@ -11,15 +11,6 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [langMenuOpen, setLangMenuOpen] = useState(false);
   const [desktopMenuOpen, setDesktopMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   // Desktop navigation items
   const desktopNavItems = useMemo(() => {
@@ -47,7 +38,7 @@ export default function Navbar() {
     ];
   }, [ready, i18n.language]);
 
-  // Social media links
+  // Social media links with official brand colors
   const socialLinks = [
     { icon: Facebook, label: 'Facebook', href: '#facebook', color: '#1877F2' },
     { icon: Instagram, label: 'Instagram', href: '#instagram', color: '#E4405F' },
@@ -67,12 +58,14 @@ export default function Navbar() {
 
   const isActive = (path) => location.pathname === path;
 
-  const navClassName = scrolled
-    ? 'fixed top-0 left-0 right-0 z-50 bg-black-stone/80 backdrop-blur-sm shadow-luxury transition-colors duration-300'
-    : 'absolute top-0 left-0 right-0 z-50 bg-transparent transition-colors duration-300';
+  // Always render white navbar - no scroll-based conditional styling
+  const navClassName = 'fixed top-0 left-0 right-0 z-50 bg-white shadow-lg transition-colors duration-300';
 
   return (
     <nav className={navClassName}>
+      {/* Top Decoration Bar */}
+      <div className="w-full h-8 bg-cover bg-center" style={{ backgroundImage: 'url(/assets/images/kush-pattern-gold.jpg)' }} />
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
@@ -84,6 +77,11 @@ export default function Navbar() {
                   alt="Kingdom of Kush logo"
                   className="w-15 h-auto" // adjust size as needed
                 />
+                <img
+                  src="/assets/images/2.png"
+                  alt="Kingdom of Kush emblem"
+                  className="w-20 h-auto"
+                />
               </a>
             </div>
           </Link>
@@ -94,11 +92,7 @@ export default function Navbar() {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  isActive(item.path)
-                    ? 'text-gold'
-                    : 'text-offwhite hover:text-gold'
-                }`}
+                className="px-3 py-2 rounded-lg text-sm font-medium text-black hover:text-black/70 transition-colors"
               >
                 {item.label}
               </Link>
@@ -107,7 +101,7 @@ export default function Navbar() {
             {/* CTA Button for Desktop */}
             <div className="ml-4 flex items-center space-x-4">
               <Link to="/join">
-                <Button variant="primary" className="border-2 border-red-600 bg-transparent text-white-marble font-light text-sm px-5 py-3 rounded-lg shadow-lg hover:bg-red-700 hover:border-red-700 transition-colors duration-300 flex items-center gap-1 mx-1">Join The Kingdom</Button>
+                <Button variant="primary" className="border-2 border-red-600 bg-transparent text-black font-light text-sm px-5 py-3 rounded-lg shadow-lg hover:bg-red-600 hover:border-red-600 hover:text-white transition-colors duration-300 flex items-center gap-1 mx-1">Join The Kingdom</Button>
               </Link>
               <div className="hidden lg:flex space-x-2">
                 {socialLinks.map((social) => {
@@ -116,11 +110,12 @@ export default function Navbar() {
                     <a
                       key={social.label}
                       href={social.href}
-                      className="p-2 rounded-lg hover:bg-white/10 transition-colors"
+                      className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
                       aria-label={social.label}
                       title={social.label}
+                      style={{ color: social.color }}
                     >
-                      <Icon size={18} className="text-offwhite" />
+                      <Icon size={18} />
                     </a>
                   );
                 })}
@@ -128,7 +123,7 @@ export default function Navbar() {
               <div className="relative">
                 <button
                   onClick={() => setDesktopMenuOpen(!desktopMenuOpen)}
-                  className="p-2 rounded-lg text-offwhite hover:bg-white/10 transition-colors"
+                  className="p-2 rounded-lg text-black-stone/70 hover:bg-gray-100 transition-colors"
                   aria-label="Toggle main menu"
                 >
                   {desktopMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -137,7 +132,7 @@ export default function Navbar() {
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="absolute top-full right-0 mt-2 w-48 bg-black-stone border border-sand-gold/20 rounded-lg shadow-lg z-50"
+                    className="absolute top-full right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50"
                   >
                     <div className="py-1">
                       {allNavItems.map((item) => (
@@ -145,20 +140,16 @@ export default function Navbar() {
                           key={item.path}
                           to={item.path}
                           onClick={() => setDesktopMenuOpen(false)}
-                          className={`block px-4 py-2 text-sm transition-colors ${
-                            isActive(item.path)
-                              ? 'text-gold'
-                              : 'text-offwhite hover:bg-white/10'
-                          }`}
+                          className="block px-4 py-2 text-sm text-black hover:bg-gray-50 transition-colors"
                         >
                           {item.label}
                         </Link>
                       ))}
                       {/* Language Switcher for Desktop Hamburger */}
-                      <div className="border-t border-sand-gold/20 mt-1 pt-1">
+                      <div className="border-t border-gray-200 mt-1 pt-1">
                         <button
                           onClick={() => setLangMenuOpen(!langMenuOpen)}
-                          className="flex w-full items-center justify-between px-4 py-2 text-sm text-offwhite hover:bg-white/10 transition-colors"
+                          className="flex w-full items-center justify-between px-4 py-2 text-sm text-black-stone/70 hover:bg-gray-50 transition-colors"
                         >
                           <div className="flex items-center space-x-2">
                             <Globe size={18} />
@@ -167,9 +158,9 @@ export default function Navbar() {
                           <span className="text-sm font-bold">{i18n.language.toUpperCase()}</span>
                         </button>
                         {langMenuOpen && (
-                          <div className="w-full bg-black-stone rounded-lg shadow-lg">
-                            <button onClick={() => toggleLanguage('en')} className="block w-full text-left px-4 py-2 text-sm text-offwhite hover:bg-white/10">English</button>
-                            <button onClick={() => toggleLanguage('ar')} className="block w-full text-left px-4 py-2 text-sm text-offwhite hover:bg-white/10 border-t border-sand-gold/20">العربية</button>
+                          <div className="w-full bg-white rounded-lg shadow-lg">
+                      <button onClick={() => toggleLanguage('en')} className="block w-full text-left px-4 py-2 text-sm text-black hover:bg-gray-50">English</button>
+                      <button onClick={() => toggleLanguage('ar')} className="block w-full text-left px-4 py-2 text-sm text-black hover:bg-gray-50 border-t border-gray-200">العربية</button>
                           </div>
                         )}
                       </div>
@@ -183,11 +174,11 @@ export default function Navbar() {
           {/* Right Actions for Mobile */}
           <div className="flex items-center md:hidden">
             <Link to="/join" className="mr-4">
-              <Button variant="primary" className="bg-red-600 text-white hover:bg-red-700 text-sm">Join The Kingdom</Button>
+              <Button variant="primary" className="border-2 border-red-600 bg-transparent text-black hover:bg-red-600 hover:text-white text-sm transition-colors duration-300">Join The Kingdom</Button>
             </Link>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg text-offwhite hover:bg-white/10 transition-colors"
+              className="p-2 rounded-lg text-black-stone/70 hover:bg-gray-100 transition-colors"
               aria-label="Toggle mobile menu"
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -201,31 +192,27 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden border-t border-sand-gold/20"
+            className="md:hidden border-t border-gray-200"
           >
-            <div className="px-2 pt-2 pb-3 space-y-1">
+            <div className="px-2 pt-2 pb-3 space-y-1 bg-white">
               {allNavItems.map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}
                   onClick={handleNavClick}
-                  className={`block px-3 py-2 rounded-lg text-base font-medium transition-colors ${
-                    isActive(item.path)
-                      ? 'text-gold bg-white/5'
-                      : 'text-offwhite hover:bg-white/10'
-                  }`}
+                  className="block px-3 py-2 rounded-lg text-base font-medium text-black hover:bg-gray-50 transition-colors"
                 >
                   {item.label}
                 </Link>
               ))}
               
               {/* Language and Socials in Mobile */}
-              <div className="px-3 pt-4 pb-2 border-t border-sand-gold/20 mt-2">
+              <div className="px-3 pt-4 pb-2 border-t border-gray-200 mt-2">
                 {/* Language Switcher Mobile */}
                 <div className="relative mb-4">
                   <button
                     onClick={() => setLangMenuOpen(!langMenuOpen)}
-                    className="flex w-full items-center justify-between px-3 py-2 rounded-lg text-offwhite bg-white/5 hover:bg-white/10 transition-colors"
+                    className="flex w-full items-center justify-between px-3 py-2 rounded-lg text-black bg-gray-50 hover:bg-gray-100 transition-colors"
                   >
                     <div className="flex items-center space-x-2">
                       <Globe size={18} />
@@ -237,10 +224,10 @@ export default function Navbar() {
                     <motion.div
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="mt-2 w-full bg-black-stone border border-sand-gold/20 rounded-lg shadow-lg"
+                      className="mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg"
                     >
-                      <button onClick={() => toggleLanguage('en')} className="block w-full text-left px-4 py-3 text-sm text-offwhite hover:bg-white/10 rounded-t-lg">English</button>
-                      <button onClick={() => toggleLanguage('ar')} className="block w-full text-left px-4 py-3 text-sm text-offwhite hover:bg-white/10 border-t border-sand-gold/20 rounded-b-lg">العربية</button>
+                      <button onClick={() => toggleLanguage('en')} className="block w-full text-left px-4 py-3 text-sm text-black hover:bg-gray-50 rounded-t-lg">English</button>
+                      <button onClick={() => toggleLanguage('ar')} className="block w-full text-left px-4 py-3 text-sm text-black hover:bg-gray-50 border-t border-gray-200 rounded-b-lg">العربية</button>
                     </motion.div>
                   )}
                 </div>
@@ -253,11 +240,12 @@ export default function Navbar() {
                       <a
                         key={social.label}
                         href={social.href}
-                        className="p-2 rounded-full hover:bg-white/10 transition-colors"
+                        className="p-2 rounded-full hover:bg-gray-100 transition-colors"
                         aria-label={social.label}
                         title={social.label}
+                        style={{ color: social.color }}
                       >
-                        <Icon size={20} className="text-offwhite" />
+                        <Icon size={20} />
                       </a>
                     );
                   })}

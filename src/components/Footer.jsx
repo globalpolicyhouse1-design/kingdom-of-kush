@@ -19,10 +19,10 @@ export default function Footer() {
   }, [ready]);
 
   const socialLinks = [
-    { icon: Facebook, href: '#', label: 'Facebook' },
-    { icon: Twitter, href: '#', label: 'Twitter' },
-    { icon: Instagram, href: '#', label: 'Instagram' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
+    { icon: Facebook, href: '#', label: 'Facebook', color: '#1877F2' },
+    { icon: Twitter, href: '#', label: 'Twitter', color: '#000000' },
+    { icon: Instagram, href: '#', label: 'Instagram', color: '#E4405F' },
+    { icon: Linkedin, href: '#', label: 'LinkedIn', color: '#0A66C2' },
   ];
 
   return (
@@ -109,8 +109,9 @@ export default function Footer() {
                   <a
                     key={social.label}
                     href={social.href}
-                    className="text-gray-300 hover:text-[#D4AF37] transition-colors"
+                    className="transition-opacity hover:opacity-75"
                     aria-label={social.label}
+                    style={{ color: social.color }}
                   >
                     <Icon size={24} />
                   </a>

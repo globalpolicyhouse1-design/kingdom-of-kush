@@ -2,7 +2,7 @@ import React, { useEffect, useState, Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import Navbar from './components/Navbar'
-import Footer from './components/Footer'
+import HomeFooter from './components/HomeFooter'
 import Home from './pages/Home'
 import About from './pages/About'
 import AboutUs from './pages/AboutUs'
@@ -47,18 +47,17 @@ export default function App(){
         <Suspense fallback={<LoadingFallback />}>
           <Routes>
             <Route path="/" element={<Home lang={lang} />} />
-            <Route path="/about" element={<About lang={lang} />} />
-            <Route path="/government" element={<Government />} />
-            <Route path="/citizenship" element={<Citizenship />} />
-            <Route path="/join" element={<Join />} />
-            <Route path="/investors" element={<Investors />} />
-            <Route path="/media" element={<MediaNews />} />
-            <Route path="/egov" element={<Egov />} />
-            <Route path="/events" element={<Events />} />
+            <Route path="/about" element={<><About lang={lang} /><HomeFooter /></>} />
+            <Route path="/government" element={<><Government /><HomeFooter /></>} />
+            <Route path="/citizenship" element={<><Citizenship /><HomeFooter /></>} />
+            <Route path="/join" element={<><Join /><HomeFooter /></>} />
+            <Route path="/investors" element={<><Investors /><HomeFooter /></>} />
+            <Route path="/media" element={<><MediaNews /><HomeFooter /></>} />
+            <Route path="/egov" element={<><Egov /><HomeFooter /></>} />
+            <Route path="/events" element={<><Events /><HomeFooter /></>} />
           </Routes>
         </Suspense>
       </div>
-      <Footer />
     </div>
   )
 }
